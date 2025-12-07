@@ -14,6 +14,7 @@ export default function TaskList({
 
     try {
       const res = await markDone(id);
+      console.log("Task marked as done:", res);
       onDone();
     } catch (error) {
       console.log("Error marking task as done:", error);

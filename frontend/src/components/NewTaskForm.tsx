@@ -14,6 +14,7 @@ export default function NewTaskForm({ onCreated }: { onCreated: () => void }) {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null)
 
     try {
         const res = await createTask({ title, description: desc });
