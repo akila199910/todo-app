@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.dto.TaskCreateDTO;
+import com.example.backend.dto.TaskUpdateResDTO;
 import com.example.backend.model.Task;
 import com.example.backend.service.TaskService;
 import jakarta.validation.Valid;
@@ -32,7 +33,7 @@ public class TaskController {
 
 
     @PostMapping("/{id}/done")
-    public void done(@PathVariable Long id){
-        service.markDone(id);
+    public TaskUpdateResDTO done(@PathVariable Long id){
+        return  service.markDone(id);
     }
 }
