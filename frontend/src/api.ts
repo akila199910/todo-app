@@ -1,20 +1,28 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API = axios.create({ 
-    baseURL: import.meta.env.VITE_API_URL ?? 
-    'http://localhost:8080/api' 
+const API = axios.create({
+    baseURL: import.meta.env.VITE_API_URL ?? "http://localhost:8080/api",
 });
 
-export type Task = { 
-                id?: number; 
-                title: string; 
-                description?: string; 
-                createdAt?: string; 
-                completed?: boolean 
-            };
+export type Task = {
+    id?: number;
+    title: string;
+    description?: string;
+    createdAt?: string;
+    completed?: boolean;
+};
 
-export const list = () => API.get<Task[]>('/tasks').then(r=>r.data);
+export const taskList = async () => {
+    const res = await API.get<Task[]>("/tasks");
+    return res;
+};
 
-export const create = (t: {title:string, description?:string})=>API.post<Task>('/tasks', t).then(r=>r.data);
+export const createTask = async (payload: {title: string; description?: string}) => {
+       const res = await API.post<Task>("/tasks", payload);
+       return res;
+};
 
-export const markDone = (id:number)=>API.post(`/tasks/${id}/done`);
+export const markDone = async (id: number) => {
+    const res = await API.post(`/tasks/${id}/done`);
+    return res;
+};
