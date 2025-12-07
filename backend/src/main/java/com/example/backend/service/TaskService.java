@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.dto.TaskCreateDTO;
 import com.example.backend.model.Task;
 import com.example.backend.repository.TaskRepository;
 import org.springframework.data.domain.PageRequest;
@@ -17,9 +18,12 @@ public class TaskService {
         this.repo = repo;
     }
 
-    public Task create(Task t) {
-        t.setId(null);
-        return repo.save(t);
+    public Task create(TaskCreateDTO t) {
+
+        Task task = new Task();
+        task.setTitle(t.getTitle());
+        task.setDescription(t.getDescription());
+        return repo.save(task);
     }
 
 

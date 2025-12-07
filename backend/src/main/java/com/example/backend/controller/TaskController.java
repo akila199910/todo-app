@@ -1,7 +1,9 @@
 package com.example.backend.controller;
 
+import com.example.backend.dto.TaskCreateDTO;
 import com.example.backend.model.Task;
 import com.example.backend.service.TaskService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public class TaskController {
 
 
     @PostMapping
-    public Task create(@RequestBody Task t){
+    public Task create(@Valid  @RequestBody TaskCreateDTO t){
         return service.create(t);
     }
 
