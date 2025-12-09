@@ -1,7 +1,10 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "./dist",
+    "types": ["vite/client", "vitest"]
+  },
+  "include": ["src"],
+  "exclude": ["src/__tests__", "**/*.test.ts", "**/*.test.tsx"]
 }
