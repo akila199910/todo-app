@@ -189,5 +189,136 @@ The `docker-compose.yml` file includes:
 * **frontend** → React app built with Vite and served via Nginx
 
 All services run inside Docker and communicate through a shared network.
+---
+
+# 🧪 Testing (Frontend & Backend)
+
+This project includes **unit tests and integration tests** for both the frontend and backend.
+These tests help ensure the functionality of the Todo application works as expected.
+
+---
+
+# ## 1. Frontend Testing (Unit & Integration)
+
+The frontend uses **React + Vite**, and the test framework is:
+
+* **Vitest** (test runner)
+* **React Testing Library** (simulates user behavior)
+* **JSDOM** (browser-like environment for testing)
+
+---
+
+## ### ✔ Frontend Unit Tests
+
+Unit tests focus on **testing individual components**, without calling the real backend.
+
+### Components tested:
+
+* **NewTaskForm**
+* **TaskList**
+
+### Examples of what is tested:
+
+* Rendering input fields and buttons
+* Handling user typing and clicks
+* Displaying validation errors
+* Mocking API calls (`createTask`, `markDone`)
+* Ensuring callbacks like `onCreated` and `onDone` run correctly
+
+Run frontend tests:
+
+```
+cd frontend
+npm test
+```
+
+---
+
+## ### 🔄 Frontend Integration Test
+
+An integration test checks **how components work together**.
+
+Example:
+
+* `App.test.tsx`
+
+  * Mocks `taskList()` API
+  * Ensures tasks load and display on page mount
+  * Ensures `NewTaskForm`, `TaskList`, and `App` interact correctly
+
+---
+
+# ## 2. Backend Testing (Unit & Integration)
+
+The backend uses **Spring Boot**, and the test framework is:
+
+* **JUnit 5**
+* **Mockito**
+* **Spring Boot Test**
+* **MockMvc**
+
+---
+
+## ### ✔ Backend Unit Tests (Service-Level)
+
+These tests verify **business logic** without database or Spring context.
+
+Example behaviors tested:
+
+* Creating a task
+* Marking a task as complete
+* Validating missing tasks
+* Throwing expected exceptions
+
+Mockito is used to mock the Repository layer to isolate the Service class.
+
+Run backend tests:
+
+```
+cd backend
+mvn test
+```
+
+---
+
+## ### 🔄 Backend Integration Tests (Controller-Level)
+
+Integration tests verify the **full API behavior**:
+
+* Controller → Service → Repository → Database
+
+MockMvc or full Spring Boot context is used to simulate HTTP requests.
+
+Example behaviors tested:
+
+* `POST /api/tasks` creates a task
+* `GET /api/tasks` returns the task list
+* `PUT /api/tasks/{id}/done` updates task status
+
+These tests confirm that all backend layers work together correctly.
+
+---
+
+# ## Summary of Testing Types
+
+| Layer    | Type        | What It Tests                            |
+| -------- | ----------- | ---------------------------------------- |
+| Frontend | Unit        | Component rendering, events, API mocking |
+| Frontend | Integration | Components working together in App       |
+| Backend  | Unit        | Service logic only (Mockito)             |
+| Backend  | Integration | Full API flow with Spring context        |
+
+---
+
+# 🎯 Purpose of These Tests
+
+Testing helps ensure:
+
+* The UI behaves as expected
+* Backend logic works correctly
+* The API returns correct responses
+* Code changes do not break existing features
+
+This testing setup ensures the Todo application is stable and maintainable.
 
 ---
